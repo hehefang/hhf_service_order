@@ -1,0 +1,60 @@
+package com.hhf.order.dao;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.hhf.common.mybatis.Page;
+import com.hhf.model.order.Order;
+import com.hhf.param.order.OrderCondition;
+
+public interface OrderMapper {
+	int deleteByPrimaryKey(Long orderId);
+
+	int insert(Order record);
+
+	int insertSelective(Order record);
+
+	int updateByPrimaryKeySelective(Order record);
+
+	int updateByPrimaryKey(Order record);
+
+	Order getOrderById(@Param("orderId") Long orderId);
+
+	List<Order> getOrdersByIdsAndUserId(@Param("orderIds") Long[] orderIds,
+			@Param("userId") Long userId);
+
+	List<Order> getOrdersByUserIdByPage(@Param("userId") Long userId,
+			@Param("page") Page<Order> page);
+
+	public List<Order> queryOrderByPage(@Param("cond") Map<String, ?> map,
+			@Param("page") Page<Order> page);
+
+	public List<Order> getOrdersByConditionPage(
+			@Param("cond") OrderCondition cond, @Param("page") Page<Order> page);
+
+	public List<Order> getOrdersByIds(@Param("orderIds") Long[] orderIds);
+
+	public List<Order> getOrdersByUserIdAndStatusByPage(
+			@Param("userId") Long userId, @Param("status") String status,
+			@Param("page") Page<Order> page);
+
+	Order getOrderByIdAndUser(@Param("orderId") Long orderId,
+			@Param("userId") Long userId);
+
+	int cancelOrderByIdAndUser(@Param("orderId") Long orderId,
+			@Param("userId") Long userId, @Param("userName") String userName,
+			@Param("cancelReason") String cancelReason, @Param("now") Date now);
+
+	int confirmOrderByUser(@Param("orderId") Long orderId,
+			@Param("userId") Long userId, @Param("userName") String userName,
+			@Param("now") Date now);
+
+	int deleteOrderByUser(@Param("orderId") Long orderId,
+			@Param("userId") Long userId, @Param("userName") String userName,
+			@Param("now") Date now);
+
+	int getToBeProcessOrderCountOfSeller(@Param("sellerId") int sellerId);
+}

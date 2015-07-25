@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhf.order.dao.PaymentDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.hhf.model.order.PaymentDetail" >
+    <id column="p_detail_id" property="pDetailId" jdbcType="DECIMAL" />
+    <result column="payment_id" property="paymentId" jdbcType="DECIMAL" />
+    <result column="order_id" property="orderId" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="REAL" />
+    <result column="user_account_id" property="userAccountId" jdbcType="DECIMAL" />
+    <result column="payment_type" property="paymentType" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.hhf.model.order.PaymentDetail" extends="BaseResultMap">
+    <association property="payment" javaType="com.hhf.model.order.Payment">
+    	<id column="PAYMENT_ID" jdbcType="DECIMAL" property="paymentId" />
+	    <result column="ORIGIN_PAYMENT_ID" jdbcType="DECIMAL" property="originPaymentId" />
+	    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+	    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+	    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+	    <result column="CREATE_BY_IP" jdbcType="VARCHAR" property="createByIp" />
+	    <result column="PAY_AMOUNT" jdbcType="DECIMAL" property="payAmount" />
+	    <result column="PAY_GW" jdbcType="CHAR" property="payGw" />
+	    <result column="STATUS" jdbcType="CHAR" property="status" />
+	    <result column="TYPE" jdbcType="CHAR" property="type" />
+	    <result column="TRADE_NO" jdbcType="VARCHAR" property="tradeNo" />
+	    <result column="CALLBACK_DATE" jdbcType="TIMESTAMP" property="callbackDate" />
+	    <result column="REAL_PAY_GW" jdbcType="CHAR" property="realPayGw" />
+	    <result column="REAL_PAY_DATE" jdbcType="TIMESTAMP" property="realPayDate" />
+	    <result column="PAYMENT_TYPE" jdbcType="CHAR" property="paymentType" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_detail_id, payment_id, order_id, amount, user_account_id, payment_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_payment_detail
+    where p_detail_id = #{pDetailId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_payment_detail
+    where p_detail_id = #{pDetailId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="pDetailId" parameterType="com.hhf.model.order.PaymentDetail" >
+    insert into t_payment_detail (payment_id, order_id, 
+      amount, user_account_id, payment_type
+      )
+    values (#{paymentId,jdbcType=DECIMAL}, #{orderId,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=REAL}, #{userAccountId,jdbcType=DECIMAL}, #{paymentType,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pDetailId" parameterType="com.hhf.model.order.PaymentDetail" >
+    insert into t_payment_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >    
+      <if test="paymentId != null" >
+        payment_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="userAccountId != null" >
+        user_account_id,
+      </if>
+      <if test="paymentType != null" >
+        payment_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paymentId != null" >
+        #{paymentId,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=REAL},
+      </if>
+      <if test="userAccountId != null" >
+        #{userAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentType != null" >
+        #{paymentType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhf.model.order.PaymentDetail" >
+    update t_payment_detail
+    <set >
+      <if test="paymentId != null" >
+        payment_id = #{paymentId,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=REAL},
+      </if>
+      <if test="userAccountId != null" >
+        user_account_id = #{userAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentType != null" >
+        payment_type = #{paymentType,jdbcType=CHAR},
+      </if>
+    </set>
+    where p_detail_id = #{pDetailId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhf.model.order.PaymentDetail" >
+    update t_payment_detail
+    set payment_id = #{paymentId,jdbcType=DECIMAL},
+      order_id = #{orderId,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=REAL},
+      user_account_id = #{userAccountId,jdbcType=DECIMAL},
+      payment_type = #{paymentType,jdbcType=CHAR}
+    where p_detail_id = #{pDetailId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PAYMENT_DETAIL
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL} and PAYMENT_TYPE = 1
+  </select>
+  
+   <select id="selectPayedByOrderId" resultType="java.lang.Integer"  parameterType="java.lang.Long" >
+    select 
+    count(*) 
+    from T_PAYMENT_DETAIL t1, T_PAYMENT t2
+    where t1.PAYMENT_ID=t2.PAYMENT_ID and t1.ORDER_ID = #{orderId,jdbcType=DECIMAL} 
+    and  t2.STATUS in('2','3')
+  </select>
+  <select id="selectByPaymentId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PAYMENT_DETAIL
+    where PAYMENT_ID = #{paymentId,jdbcType=DECIMAL}
+  </select>
+  <select id="getPaymentByOrderId" resultMap="BaseResultMap2" parameterType="java.lang.Long">
+  	select 
+  		t1.P_DETAIL_ID, 
+  		t1.PAYMENT_ID, 
+  		t1.ORDER_ID, 
+  		t1.AMOUNT, 
+  		t1.USER_ACCOUNT_ID, 
+  		t1.PAYMENT_TYPE,
+  		t2.PAYMENT_ID, 
+  		t2.ORIGIN_PAYMENT_ID, 
+  		t2.CREATE_DATE, 
+  		t2.USER_ID, 
+  		t2.USER_NAME, 
+  		t2.CREATE_BY_IP, 
+  		t2.PAY_AMOUNT, 
+    	t2.PAY_GW, 
+    	t2.STATUS, 
+    	t2.TYPE, 
+    	t2.TRADE_NO, 
+    	t2.CALLBACK_DATE, 
+    	t2.REAL_PAY_GW, 
+    	t2.REAL_PAY_DATE, 
+    	t2.PAYMENT_TYPE
+  	from T_PAYMENT_DETAIL t1, T_PAYMENT t2
+  	<where>
+  		t1.PAYMENT_ID = t2.PAYMENT_ID
+  		and t1.ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  		and t2.STATUS in('2','3')
+  		and rownum = 1
+  	</where>
+  </select>
+  
+    <select id="selectPDetailByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PAYMENT_DETAIL
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </select>
+</mapper>

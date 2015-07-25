@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhf.order.dao.OrderMapper">
+	<resultMap id="BaseResultMap" type="com.hhf.model.order.Order">
+		<id column="order_id" property="orderId" jdbcType="DECIMAL" />
+		<result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="DECIMAL" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="seller_id" property="sellerId" jdbcType="DECIMAL" />
+		<result column="brand_show_id" property="brandShowId" jdbcType="INTEGER" />
+  		<result column="brand_show_title" property="brandShowTitle" jdbcType="VARCHAR" />
+		<result column="order_type" property="orderType" jdbcType="CHAR" />
+		<result column="order_status" property="orderStatus" jdbcType="CHAR" />
+		<result column="prod_fee" property="prodFee" jdbcType="REAL" />
+		<result column="prod_discount_type" property="prodDiscountType"
+			jdbcType="CHAR" />
+		<result column="prod_discount_fee" property="prodDiscountFee"
+			jdbcType="REAL" />
+		<result column="deliver_fee" property="deliverFee" jdbcType="REAL" />
+		<result column="deliver_discount" property="deliverDiscount"
+			jdbcType="REAL" />
+		<result column="order_fee" property="orderFee" jdbcType="DECIMAL" />
+		<result column="r_name" property="rName" jdbcType="VARCHAR" />
+		<result column="r_province" property="rProvince" jdbcType="VARCHAR" />
+		<result column="r_city" property="rCity" jdbcType="VARCHAR" />
+		<result column="r_county" property="rCounty" jdbcType="VARCHAR" />
+		<result column="r_town" property="rTown" jdbcType="VARCHAR" />
+		<result column="r_addr" property="rAddr" jdbcType="VARCHAR" />
+		<result column="r_mobile" property="rMobile" jdbcType="CHAR" />
+		<result column="r_phone" property="rPhone" jdbcType="VARCHAR" />
+		<result column="r_email" property="rEmail" jdbcType="VARCHAR" />
+		<result column="r_zipcode" property="rZipcode" jdbcType="CHAR" />
+		<result column="order_source" property="orderSource" jdbcType="VARCHAR" />
+		<result column="pay_type" property="payType" jdbcType="CHAR" />
+		<result column="pay_mode" property="payMode" jdbcType="CHAR" />
+		<result column="pay_status" property="payStatus" jdbcType="CHAR" />
+		<result column="pay_date" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="logistics_compa" property="logisticsCompa"
+			jdbcType="TINYINT" />
+		<result column="logistics_name" property="logisticsName"
+			jdbcType="VARCHAR" />
+		<result column="awb_no" property="awbNo" jdbcType="VARCHAR" />
+		<result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+		<result column="signed_status" property="signedStatus"
+			jdbcType="CHAR" />
+		<result column="signed_type" property="signedType" jdbcType="CHAR" />
+		<result column="signed_time" property="signedTime" jdbcType="TIMESTAMP" />
+		<result column="Not_signed_cause" property="notSignedCause"
+			jdbcType="VARCHAR" />
+		<result column="receipt_date" property="receiptDate" jdbcType="TIMESTAMP" />
+		<result column="receipt_type" property="receiptType" jdbcType="CHAR" />
+		<result column="receipt_mode" property="receiptMode" jdbcType="CHAR" />
+		<result column="created_by_name" property="createdByName"
+			jdbcType="VARCHAR" />
+		<result column="yw_remark" property="ywRemark" jdbcType="VARCHAR" />
+		<result column="seller_remark" property="sellerRemark"
+			jdbcType="VARCHAR" />
+		<result column="user_remark" property="userRemark" jdbcType="VARCHAR" />
+		<result column="s_s_a_id" property="sSAId" jdbcType="DECIMAL" />
+		<result column="Cancel_date" property="cancelDate" jdbcType="TIMESTAMP" />
+		<result column="Cancel_by_name" property="cancelByName"
+			jdbcType="VARCHAR" />
+		<result column="Cancel_reason" property="cancelReason"
+			jdbcType="VARCHAR" />
+		<result column="Last_update_date" property="lastUpdateDate"
+			jdbcType="TIMESTAMP" />
+		<result column="Last_update_by_name" property="lastUpdateByName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap type="com.hhf.model.order.Order" id="BaseResultMap2"
+		extends="BaseResultMap">
+		<collection property="orderItems" ofType="com.hhf.model.order.OrderItem">
+			<id column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
+		    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+		    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+		    <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+		    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+		    <result column="prod_code" property="prodCode" jdbcType="VARCHAR" />
+		    <result column="sku_code" property="skuCode" jdbcType="VARCHAR" />
+		    <result column="prod_spec_id" property="prodSpecId" jdbcType="VARCHAR" />
+		    <result column="prod_spec_name" property="prodSpecName" jdbcType="VARCHAR" />
+		    <result column="prod_title" property="prodTitle" jdbcType="VARCHAR" />
+		    <result column="prod_img" property="prodImg" jdbcType="VARCHAR" />
+		    <result column="bc_id" property="bcId" jdbcType="SMALLINT" />
+		    <result column="seller_id" property="sellerId" jdbcType="DECIMAL" />
+		    <result column="sale_price" property="salePrice" jdbcType="REAL" />
+		    <result column="trans_price" property="transPrice" jdbcType="REAL" />
+		    <result column="number" property="number" jdbcType="SMALLINT" />
+		    <result column="status" property="status" jdbcType="CHAR" />
+		    <result column="is_comment" property="isComment" jdbcType="CHAR" />
+		    <result column="brand_show_id" property="brandShowId" jdbcType="INTEGER" />
+		    <result column="brand_show_title" property="brandShowTitle" jdbcType="VARCHAR" />
+		    <result column="bsd_id" property="bsdId" jdbcType="INTEGER" />
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		order_id, order_code, user_id, user_name, created_date, seller_id, 
+		brand_show_id, brand_show_title, order_type, order_status,
+		prod_fee, prod_discount_type, prod_discount_fee, deliver_fee, deliver_discount,
+		order_fee,
+		r_name, r_province, r_city, r_county, r_town, r_addr, r_mobile, r_phone,
+		r_email,
+		r_zipcode, order_source, pay_type, pay_mode, pay_status, pay_date,
+		logistics_compa,
+		logistics_name, awb_no, send_time, signed_status, signed_type, signed_time,
+		Not_signed_cause,
+		receipt_date, receipt_type, receipt_mode, created_by_name, yw_remark,
+		seller_remark,
+		user_remark, s_s_a_id, Cancel_date, Cancel_by_name, Cancel_reason,
+		Last_update_date,
+		Last_update_by_name
+	</sql>
+	<sql id="Base_Column_List2">
+	    select
+			t.order_id, t.order_code, t.user_id, t.user_name, t.created_date, t.seller_id, 
+			t.brand_show_id, t.brand_show_title, t.order_type, t.order_status,
+			t.prod_fee, t.prod_discount_type, t.prod_discount_fee, t.deliver_fee, t.deliver_discount,
+			t.order_fee,
+			t.r_name, t.r_province, t.r_city, t.r_county, t.r_town, t.r_addr, t.r_mobile, t.r_phone,
+			t.r_email,
+			t.r_zipcode, t.order_source, t.pay_type, t.pay_mode, t.pay_status, t.pay_date,
+			t.logistics_compa,
+			t.logistics_name, t.awb_no, t.send_time, t.signed_status, t.signed_type, t.signed_time,
+			t.not_signed_cause,
+			t.receipt_date, t.receipt_type, t.receipt_mode, t.created_by_name, t.yw_remark,
+			t.seller_remark,
+			t.user_remark, t.s_s_a_id, t.Cancel_date, t.Cancel_by_name, t.Cancel_reason,
+			t.last_update_date,
+			t.last_update_by_name,
+			t1.order_item_id, t1.order_id order_id2, t1.order_code order_code2, t1.sku_id, t1.prod_id, t1.prod_code, t1.sku_code,
+			t1.prod_spec_id,
+			t1.prod_spec_name, t1.prod_title, t1.prod_img, t1.bc_id, t1.seller_id seller_id2, t1.sale_price, t1.trans_price,
+			t1.number, t1.status,
+			t1.is_comment, t1.brand_show_id brand_show_id2, t1.brand_show_title brand_show_title2, t1.bsd_id
+		from t_order t 
+		LEFT OUTER JOIN t_order_item t1 
+	    on t.order_id = t1.order_id
+	</sql>
+	<select id="getOrderById" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_order
+		where order_id = #{orderId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_order
+		where order_id = #{orderId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.hhf.model.order.Order">
+		insert into t_order (order_id, order_code, user_id,
+		user_name, created_date, seller_id,
+		brand_show_id, brand_show_title,
+		order_type, order_status, prod_fee,
+		prod_discount_type, prod_discount_fee, deliver_fee,
+		deliver_discount, order_fee, r_name,
+		r_province, r_city, r_county,
+		r_town, r_addr, r_mobile,
+		r_phone, r_email, r_zipcode,
+		order_source, pay_type, pay_mode,
+		pay_status, pay_date, logistics_compa,
+		logistics_name, awb_no, send_time,
+		signed_status, signed_type, signed_time,
+		Not_signed_cause, receipt_date, receipt_type,
+		receipt_mode, created_by_name, yw_remark,
+		seller_remark, user_remark, s_s_a_id,
+		Cancel_date, Cancel_by_name, Cancel_reason,
+		Last_update_date, Last_update_by_name)
+		values (#{orderId,jdbcType=DECIMAL}, #{orderCode,jdbcType=VARCHAR},
+		#{userId,jdbcType=DECIMAL},
+		#{userName,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{sellerId,jdbcType=DECIMAL},
+		#{brandShowId,jdbcType=INTEGER}, #{brandShowTitle,jdbcType=VARCHAR}, 
+		#{orderType,jdbcType=CHAR}, #{orderStatus,jdbcType=CHAR},
+		#{prodFee,jdbcType=REAL},
+		#{prodDiscountType,jdbcType=CHAR}, #{prodDiscountFee,jdbcType=REAL}, #{deliverFee,jdbcType=REAL},
+		#{deliverDiscount,jdbcType=REAL}, #{orderFee,jdbcType=DECIMAL},
+		#{rName,jdbcType=VARCHAR},
+		#{rProvince,jdbcType=VARCHAR}, #{rCity,jdbcType=VARCHAR}, #{rCounty,jdbcType=VARCHAR},
+		#{rTown,jdbcType=VARCHAR}, #{rAddr,jdbcType=VARCHAR},
+		#{rMobile,jdbcType=CHAR},
+		#{rPhone,jdbcType=VARCHAR}, #{rEmail,jdbcType=VARCHAR}, #{rZipcode,jdbcType=CHAR},
+		#{orderSource,jdbcType=VARCHAR}, #{payType,jdbcType=CHAR},
+		#{payMode,jdbcType=CHAR},
+		#{payStatus,jdbcType=CHAR}, #{payDate,jdbcType=TIMESTAMP}, #{logisticsCompa,jdbcType=TINYINT},
+		#{logisticsName,jdbcType=VARCHAR}, #{awbNo,jdbcType=VARCHAR},
+		#{sendTime,jdbcType=TIMESTAMP},
+		#{signedStatus,jdbcType=CHAR}, #{signedType,jdbcType=CHAR}, #{signedTime,jdbcType=TIMESTAMP},
+		#{notSignedCause,jdbcType=VARCHAR}, #{receiptDate,jdbcType=TIMESTAMP},
+		#{receiptType,jdbcType=CHAR},
+		#{receiptMode,jdbcType=CHAR}, #{createdByName,jdbcType=VARCHAR}, #{ywRemark,jdbcType=VARCHAR},
+		#{sellerRemark,jdbcType=VARCHAR}, #{userRemark,jdbcType=VARCHAR},
+		#{sSAId,jdbcType=DECIMAL},
+		#{cancelDate,jdbcType=TIMESTAMP}, #{cancelByName,jdbcType=VARCHAR}, #{cancelReason,jdbcType=VARCHAR},
+		#{lastUpdateDate,jdbcType=TIMESTAMP},
+		#{lastUpdateByName,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" keyProperty="orderId"
+		useGeneratedKeys="true" parameterType="com.hhf.model.order.Order">
+		insert into t_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="orderCode != null">
+				order_code,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="sellerId != null">
+				seller_id,
+			</if>
+			<if test="brandShowId != null" >
+			  brand_show_id,
+			</if>
+			<if test="brandShowTitle != null" >
+			  brand_show_title,
+			</if>
+			<if test="orderType != null">
+				order_type,
+			</if>
+			<if test="orderStatus != null">
+				order_status,
+			</if>
+			<if test="prodFee != null">
+				prod_fee,
+			</if>
+			<if test="prodDiscountType != null">
+				prod_discount_type,
+			</if>
+			<if test="prodDiscountFee != null">
+				prod_discount_fee,
+			</if>
+			<if test="deliverFee != null">
+				deliver_fee,
+			</if>
+			<if test="deliverDiscount != null">
+				deliver_discount,
+			</if>
+			<if test="orderFee != null">
+				order_fee,
+			</if>
+			<if test="rName != null">
+				r_name,
+			</if>
+			<if test="rProvince != null">
+				r_province,
+			</if>
+			<if test="rCity != null">
+				r_city,
+			</if>
+			<if test="rCounty != null">
+				r_county,
+			</if>
+			<if test="rTown != null">
+				r_town,
+			</if>
+			<if test="rAddr != null">
+				r_addr,
+			</if>
+			<if test="rMobile != null">
+				r_mobile,
+			</if>
+			<if test="rPhone != null">
+				r_phone,
+			</if>
+			<if test="rEmail != null">
+				r_email,
+			</if>
+			<if test="rZipcode != null">
+				r_zipcode,
+			</if>
+			<if test="orderSource != null">
+				order_source,
+			</if>
+			<if test="payType != null">
+				pay_type,
+			</if>
+			<if test="payMode != null">
+				pay_mode,
+			</if>
+			<if test="payStatus != null">
+				pay_status,
+			</if>
+			<if test="payDate != null">
+				pay_date,
+			</if>
+			<if test="logisticsCompa != null">
+				logistics_compa,
+			</if>
+			<if test="logisticsName != null">
+				logistics_name,
+			</if>
+			<if test="awbNo != null">
+				awb_no,
+			</if>
+			<if test="sendTime != null">
+				send_time,
+			</if>
+			<if test="signedStatus != null">
+				signed_status,
+			</if>
+			<if test="signedType != null">
+				signed_type,
+			</if>
+			<if test="signedTime != null">
+				signed_time,
+			</if>
+			<if test="notSignedCause != null">
+				Not_signed_cause,
+			</if>
+			<if test="receiptDate != null">
+				receipt_date,
+			</if>
+			<if test="receiptType != null">
+				receipt_type,
+			</if>
+			<if test="receiptMode != null">
+				receipt_mode,
+			</if>
+			<if test="createdByName != null">
+				created_by_name,
+			</if>
+			<if test="ywRemark != null">
+				yw_remark,
+			</if>
+			<if test="sellerRemark != null">
+				seller_remark,
+			</if>
+			<if test="userRemark != null">
+				user_remark,
+			</if>
+			<if test="sSAId != null">
+				s_s_a_id,
+			</if>
+			<if test="cancelDate != null">
+				Cancel_date,
+			</if>
+			<if test="cancelByName != null">
+				Cancel_by_name,
+			</if>
+			<if test="cancelReason != null">
+				Cancel_reason,
+			</if>
+			<if test="lastUpdateDate != null">
+				Last_update_date,
+			</if>
+			<if test="lastUpdateByName != null">
+				Last_update_by_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=DECIMAL},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sellerId != null">
+				#{sellerId,jdbcType=DECIMAL},
+			</if>
+			<if test="brandShowId != null" >
+			  #{brandShowId,jdbcType=INTEGER},
+			</if>
+			<if test="brandShowTitle != null" >
+			  #{brandShowTitle,jdbcType=VARCHAR},
+			</if>			
+			<if test="orderType != null">
+				#{orderType,jdbcType=CHAR},
+			</if>
+			<if test="orderStatus != null">
+				#{orderStatus,jdbcType=CHAR},
+			</if>
+			<if test="prodFee != null">
+				#{prodFee,jdbcType=REAL},
+			</if>
+			<if test="prodDiscountType != null">
+				#{prodDiscountType,jdbcType=CHAR},
+			</if>
+			<if test="prodDiscountFee != null">
+				#{prodDiscountFee,jdbcType=REAL},
+			</if>
+			<if test="deliverFee != null">
+				#{deliverFee,jdbcType=REAL},
+			</if>
+			<if test="deliverDiscount != null">
+				#{deliverDiscount,jdbcType=REAL},
+			</if>
+			<if test="orderFee != null">
+				#{orderFee,jdbcType=DECIMAL},
+			</if>
+			<if test="rName != null">
+				#{rName,jdbcType=VARCHAR},
+			</if>
+			<if test="rProvince != null">
+				#{rProvince,jdbcType=VARCHAR},
+			</if>
+			<if test="rCity != null">
+				#{rCity,jdbcType=VARCHAR},
+			</if>
+			<if test="rCounty != null">
+				#{rCounty,jdbcType=VARCHAR},
+			</if>
+			<if test="rTown != null">
+				#{rTown,jdbcType=VARCHAR},
+			</if>
+			<if test="rAddr != null">
+				#{rAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="rMobile != null">
+				#{rMobile,jdbcType=CHAR},
+			</if>
+			<if test="rPhone != null">
+				#{rPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="rEmail != null">
+				#{rEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="rZipcode != null">
+				#{rZipcode,jdbcType=CHAR},
+			</if>
+			<if test="orderSource != null">
+				#{orderSource,jdbcType=VARCHAR},
+			</if>
+			<if test="payType != null">
+				#{payType,jdbcType=CHAR},
+			</if>
+			<if test="payMode != null">
+				#{payMode,jdbcType=CHAR},
+			</if>
+			<if test="payStatus != null">
+				#{payStatus,jdbcType=CHAR},
+			</if>
+			<if test="payDate != null">
+				#{payDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="logisticsCompa != null">
+				#{logisticsCompa,jdbcType=TINYINT},
+			</if>
+			<if test="logisticsName != null">
+				#{logisticsName,jdbcType=VARCHAR},
+			</if>
+			<if test="awbNo != null">
+				#{awbNo,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="signedStatus != null">
+				#{signedStatus,jdbcType=CHAR},
+			</if>
+			<if test="signedType != null">
+				#{signedType,jdbcType=CHAR},
+			</if>
+			<if test="signedTime != null">
+				#{signedTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="notSignedCause != null">
+				#{notSignedCause,jdbcType=VARCHAR},
+			</if>
+			<if test="receiptDate != null">
+				#{receiptDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiptType != null">
+				#{receiptType,jdbcType=CHAR},
+			</if>
+			<if test="receiptMode != null">
+				#{receiptMode,jdbcType=CHAR},
+			</if>
+			<if test="createdByName != null">
+				#{createdByName,jdbcType=VARCHAR},
+			</if>
+			<if test="ywRemark != null">
+				#{ywRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="sellerRemark != null">
+				#{sellerRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="userRemark != null">
+				#{userRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="sSAId != null">
+				#{sSAId,jdbcType=DECIMAL},
+			</if>
+			<if test="cancelDate != null">
+				#{cancelDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cancelByName != null">
+				#{cancelByName,jdbcType=VARCHAR},
+			</if>
+			<if test="cancelReason != null">
+				#{cancelReason,jdbcType=VARCHAR},
+			</if>
+			<if test="lastUpdateDate != null">
+				#{lastUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastUpdateByName != null">
+				#{lastUpdateByName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hhf.model.order.Order">
+		update t_order
+		<set>
+			<if test="orderCode != null">
+				order_code = #{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sellerId != null">
+				seller_id = #{sellerId,jdbcType=DECIMAL},
+			</if>
+			<if test="brandShowId != null" >
+			  brand_show_id = #{brandShowId,jdbcType=INTEGER},
+			</if>
+			<if test="brandShowTitle != null" >
+			  brand_show_title = #{brandShowTitle,jdbcType=VARCHAR},
+			</if>	
+			<if test="orderType != null">
+				order_type = #{orderType,jdbcType=CHAR},
+			</if>
+			<if test="orderStatus != null">
+				order_status = #{orderStatus,jdbcType=CHAR},
+			</if>
+			<if test="prodFee != null">
+				prod_fee = #{prodFee,jdbcType=REAL},
+			</if>
+			<if test="prodDiscountType != null">
+				prod_discount_type = #{prodDiscountType,jdbcType=CHAR},
+			</if>
+			<if test="prodDiscountFee != null">
+				prod_discount_fee = #{prodDiscountFee,jdbcType=REAL},
+			</if>
+			<if test="deliverFee != null">
+				deliver_fee = #{deliverFee,jdbcType=REAL},
+			</if>
+			<if test="deliverDiscount != null">
+				deliver_discount = #{deliverDiscount,jdbcType=REAL},
+			</if>
+			<if test="orderFee != null">
+				order_fee = #{orderFee,jdbcType=DECIMAL},
+			</if>
+			<if test="rName != null">
+				r_name = #{rName,jdbcType=VARCHAR},
+			</if>
+			<if test="rProvince != null">
+				r_province = #{rProvince,jdbcType=VARCHAR},
+			</if>
+			<if test="rCity != null">
+				r_city = #{rCity,jdbcType=VARCHAR},
+			</if>
+			<if test="rCounty != null">
+				r_county = #{rCounty,jdbcType=VARCHAR},
+			</if>
+			<if test="rTown != null">
+				r_town = #{rTown,jdbcType=VARCHAR},
+			</if>
+			<if test="rAddr != null">
+				r_addr = #{rAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="rMobile != null">
+				r_mobile = #{rMobile,jdbcType=CHAR},
+			</if>
+			<if test="rPhone != null">
+				r_phone = #{rPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="rEmail != null">
+				r_email = #{rEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="rZipcode != null">
+				r_zipcode = #{rZipcode,jdbcType=CHAR},
+			</if>
+			<if test="orderSource != null">
+				order_source = #{orderSource,jdbcType=VARCHAR},
+			</if>
+			<if test="payType != null">
+				pay_type = #{payType,jdbcType=CHAR},
+			</if>
+			<if test="payMode != null">
+				pay_mode = #{payMode,jdbcType=CHAR},
+			</if>
+			<if test="payStatus != null">
+				pay_status = #{payStatus,jdbcType=CHAR},
+			</if>
+			<if test="payDate != null">
+				pay_date = #{payDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="logisticsCompa != null">
+				logistics_compa = #{logisticsCompa,jdbcType=TINYINT},
+			</if>
+			<if test="logisticsName != null">
+				logistics_name = #{logisticsName,jdbcType=VARCHAR},
+			</if>
+			<if test="awbNo != null">
+				awb_no = #{awbNo,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTime != null">
+				send_time = #{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="signedStatus != null">
+				signed_status = #{signedStatus,jdbcType=CHAR},
+			</if>
+			<if test="signedType != null">
+				signed_type = #{signedType,jdbcType=CHAR},
+			</if>
+			<if test="signedTime != null">
+				signed_time = #{signedTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="notSignedCause != null">
+				Not_signed_cause = #{notSignedCause,jdbcType=VARCHAR},
+			</if>
+			<if test="receiptDate != null">
+				receipt_date = #{receiptDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiptType != null">
+				receipt_type = #{receiptType,jdbcType=CHAR},
+			</if>
+			<if test="receiptMode != null">
+				receipt_mode = #{receiptMode,jdbcType=CHAR},
+			</if>
+			<if test="createdByName != null">
+				created_by_name = #{createdByName,jdbcType=VARCHAR},
+			</if>
+			<if test="ywRemark != null">
+				yw_remark = #{ywRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="sellerRemark != null">
+				seller_remark = #{sellerRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="userRemark != null">
+				user_remark = #{userRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="sSAId != null">
+				s_s_a_id = #{sSAId,jdbcType=DECIMAL},
+			</if>
+			<if test="cancelDate != null">
+				Cancel_date = #{cancelDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cancelByName != null">
+				Cancel_by_name = #{cancelByName,jdbcType=VARCHAR},
+			</if>
+			<if test="cancelReason != null">
+				Cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+			</if>
+			<if test="lastUpdateDate != null">
+				Last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastUpdateByName != null">
+				Last_update_by_name = #{lastUpdateByName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where order_id = #{orderId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hhf.model.order.Order">
+		update t_order
+		set order_code = #{orderCode,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=DECIMAL},
+		user_name = #{userName,jdbcType=VARCHAR},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		seller_id = #{sellerId,jdbcType=DECIMAL},
+		brand_show_id = #{brandShowId,jdbcType=INTEGER},
+		brand_show_title = #{brandShowTitle,jdbcType=VARCHAR},
+		order_type = #{orderType,jdbcType=CHAR},
+		order_status = #{orderStatus,jdbcType=CHAR},
+		prod_fee = #{prodFee,jdbcType=REAL},
+		prod_discount_type = #{prodDiscountType,jdbcType=CHAR},
+		prod_discount_fee = #{prodDiscountFee,jdbcType=REAL},
+		deliver_fee = #{deliverFee,jdbcType=REAL},
+		deliver_discount = #{deliverDiscount,jdbcType=REAL},
+		order_fee = #{orderFee,jdbcType=DECIMAL},
+		r_name = #{rName,jdbcType=VARCHAR},
+		r_province = #{rProvince,jdbcType=VARCHAR},
+		r_city = #{rCity,jdbcType=VARCHAR},
+		r_county = #{rCounty,jdbcType=VARCHAR},
+		r_town = #{rTown,jdbcType=VARCHAR},
+		r_addr = #{rAddr,jdbcType=VARCHAR},
+		r_mobile = #{rMobile,jdbcType=CHAR},
+		r_phone = #{rPhone,jdbcType=VARCHAR},
+		r_email = #{rEmail,jdbcType=VARCHAR},
+		r_zipcode = #{rZipcode,jdbcType=CHAR},
+		order_source = #{orderSource,jdbcType=VARCHAR},
+		pay_type = #{payType,jdbcType=CHAR},
+		pay_mode = #{payMode,jdbcType=CHAR},
+		pay_status = #{payStatus,jdbcType=CHAR},
+		pay_date = #{payDate,jdbcType=TIMESTAMP},
+		logistics_compa = #{logisticsCompa,jdbcType=TINYINT},
+		logistics_name = #{logisticsName,jdbcType=VARCHAR},
+		awb_no = #{awbNo,jdbcType=VARCHAR},
+		send_time = #{sendTime,jdbcType=TIMESTAMP},
+		signed_status = #{signedStatus,jdbcType=CHAR},
+		signed_type = #{signedType,jdbcType=CHAR},
+		signed_time = #{signedTime,jdbcType=TIMESTAMP},
+		Not_signed_cause = #{notSignedCause,jdbcType=VARCHAR},
+		receipt_date = #{receiptDate,jdbcType=TIMESTAMP},
+		receipt_type = #{receiptType,jdbcType=CHAR},
+		receipt_mode = #{receiptMode,jdbcType=CHAR},
+		created_by_name = #{createdByName,jdbcType=VARCHAR},
+		yw_remark = #{ywRemark,jdbcType=VARCHAR},
+		seller_remark = #{sellerRemark,jdbcType=VARCHAR},
+		user_remark = #{userRemark,jdbcType=VARCHAR},
+		s_s_a_id = #{sSAId,jdbcType=DECIMAL},
+		Cancel_date = #{cancelDate,jdbcType=TIMESTAMP},
+		Cancel_by_name = #{cancelByName,jdbcType=VARCHAR},
+		Cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+		Last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+		Last_update_by_name = #{lastUpdateByName,jdbcType=VARCHAR}
+		where order_id = #{orderId,jdbcType=DECIMAL}
+	</update>
+
+	<select id="getOrdersByIdsAndUserId" resultMap="BaseResultMap2">
+		select * from t_order t,t_order_item t1 where t.order_id = t1.order_id
+		and t.order_id in
+		<foreach collection="orderIds" item="orderId" open="("
+			separator="," close=")">
+			#{orderId}
+		</foreach>
+		and t.user_id = #{userId,jdbcType=DECIMAL}
+	</select>
+	<select id="getOrdersByUserIdByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_order
+		where user_id = #{userId,jdbcType=DECIMAL} 
+		and order_status != 'd' 
+		order by ORDER_ID DESC
+	</select>
+
+	<select id="getOrdersByUserIdAndStatusByPage" resultMap="BaseResultMap">
+	    select
+		<include refid="Base_Column_List" />
+		from t_order
+	    where user_id = #{userId,jdbcType=DECIMAL} 
+	    and order_status = #{status,jdbcType=CHAR}
+	    order by ORDER_ID DESC
+	</select>
+	
+	<select id="queryOrderByPage" resultMap="BaseResultMap">
+		select tor.*
+		from t_order tor
+		
+		<if test="cond.prodTitle != null and cond.prodTitle != ''">
+			left outer join t_order_item oi on tor.order_id = oi.order_id 
+		</if>
+		
+		<where>
+			<if test="cond.prodTitle != null and cond.prodTitle != ''">
+				<bind name="prodTitle" value="'%' + cond.prodTitle + '%'" />
+				and oi.prod_title like #{prodTitle} 
+			</if>
+			<if test="cond.orderId != null">
+				and tor.order_id = #{cond.orderId,jdbcType=DECIMAL}
+			</if>
+			<if test="cond.orderCode != null and cond.orderCode != ''">
+				and tor.order_code = #{cond.orderCode,jdbcType=VARCHAR}
+			</if>
+			<if test="cond.userName != null and cond.userName != ''">
+				<bind name="userName" value="'%' + cond.userName + '%'" />
+				and tor.user_name like #{userName,jdbcType=VARCHAR}
+			</if>
+			<if test="cond.startDt != null" >
+			 	and tor.created_date &gt;= #{cond.startDt,jdbcType=TIMESTAMP}
+		    </if>
+		    <if test="cond.endDt != null" >
+			 	and tor.created_date &lt;= #{cond.endDt,jdbcType=TIMESTAMP}
+		    </if>
+			<if test="cond.orderStatus != null and cond.orderStatus != '-1'">
+				and tor.order_status = #{cond.orderStatus,jdbcType=CHAR}
+			</if>
+			<if test="cond.orderSource != null and cond.orderSource != '-1'">
+				and tor.order_source = #{cond.orderSource,jdbcType=CHAR}
+			</if>
+			<if test="cond.payType != null and cond.payType != '-1'">
+				and tor.pay_type = #{cond.payType,jdbcType=CHAR}
+			</if>
+			<if test="cond.payMode != null and cond.payMode != '-1'">
+				and tor.pay_mode = #{cond.payMode,jdbcType=CHAR}
+			</if>
+			<if test="cond.payStatus != null and cond.payStatus != '-1'">
+				and tor.pay_status = #{cond.payStatus,jdbcType=CHAR}
+			</if>
+			<if test="cond.brandShowTitle != null and cond.brandShowTitle != ''">
+				<bind name="brandShowTitle" value="'%' + cond.brandShowTitle + '%'" />
+				and tor.brand_show_title like #{brandShowTitle,jdbcType=VARCHAR}
+			</if>
+		</where>
+		
+		order by tor.ORDER_ID DESC
+	</select>
+	
+	<select id="getOrdersByConditionPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_order
+		<where>
+			<if test="cond.orderId != null">
+				and order_id = #{cond.orderId,jdbcType=DECIMAL}
+			</if>
+			<if test="cond.orderCode != null and cond.orderCode != ''">
+				and order_code = #{cond.orderCode,jdbcType=VARCHAR}
+			</if>
+			<if test="cond.sellerId != null">
+				and seller_id = #{cond.sellerId,jdbcType=DECIMAL}
+			</if>
+			<if test="cond.orderStatus != null and cond.orderStatus !=''">
+				and order_status = #{cond.orderStatus,jdbcType=CHAR}
+			</if>
+			<if test="cond.startDate != null">
+				and created_date &gt;= #{cond.startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="cond.endDate != null">
+				and created_date &lt;= #{cond.endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="cond.brandShowId!=null and cond.brandShowId>0">
+				and brand_show_id = #{cond.brandShowId,jdbcType=DECIMAL}
+			</if>
+		</where>
+		order by order_id desc
+	</select>
+	
+	<select id="getOrdersByIds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_order
+		where order_id in
+		<foreach collection="orderIds" item="orderId" open="(" separator="," close=")">
+			#{orderId}
+		</foreach>
+	</select>
+
+	<select id="getOrderByIdAndUser" resultMap="BaseResultMap2">
+		select * from t_order t,t_order_item t1 
+		where t.order_id = t1.order_id
+		and t.order_id = #{orderId,jdbcType=DECIMAL}
+		and t.user_id = #{userId,jdbcType=DECIMAL}
+	</select>
+	
+	<update id="cancelOrderByIdAndUser">
+	    update t_order
+	    set order_status = '4', 
+		    cancel_by_name = #{userName,jdbcType=VARCHAR},
+		    cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+		    cancel_date = #{now,jdbcType=TIMESTAMP},
+		    last_update_date = #{now,jdbcType=TIMESTAMP},
+		    last_update_by_name = #{userName,jdbcType=VARCHAR} 
+	    where order_id = #{orderId,jdbcType=DECIMAL} 
+	    and user_id = #{userId,jdbcType=DECIMAL}
+	</update>
+	
+	<update id="confirmOrderByUser">
+	    update t_order
+	    set order_status = '8', 
+	    	signed_status = '1',
+	    	signed_type = '0',
+	    	signed_time = #{now,jdbcType=TIMESTAMP},
+		    last_update_date = #{now,jdbcType=TIMESTAMP},
+		    last_update_by_name = #{userName,jdbcType=VARCHAR} 
+	    where order_id = #{orderId,jdbcType=DECIMAL} 
+	    and user_id = #{userId,jdbcType=DECIMAL}
+	</update>
+	
+	<update id="deleteOrderByUser">
+	    update t_order
+	    set order_status = 'd',
+		    last_update_date = #{now,jdbcType=TIMESTAMP},
+		    last_update_by_name = #{userName,jdbcType=VARCHAR} 
+	    where order_id = #{orderId,jdbcType=DECIMAL} 
+	    and user_id = #{userId,jdbcType=DECIMAL}
+	</update>
+	
+	<select id="getToBeProcessOrderCountOfSeller" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+      	select 
+   			count(*)
+   		from t_order
+	    where seller_id = #{sellerId,jdbcType=INTEGER}
+	    	and order_status = '3'
+   </select>	
+</mapper>

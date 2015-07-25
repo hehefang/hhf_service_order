@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hhf.order.dao.ReturnOrderMapper">
+	<resultMap id="BaseResultMap" type="com.hhf.model.order.ReturnOrder">
+		<id column="ret_order_id" property="retOrderId" jdbcType="INTEGER" />
+		<result column="ret_order_code" property="retOrderCode"
+			jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="seller_id" property="sellerId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="return_type" property="returnType" jdbcType="CHAR" />
+		<result column="return_reason" property="returnReason"
+			jdbcType="VARCHAR" />
+		<result column="evidence_pic_url" property="evidencePicUrl"
+			jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="CHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="create_ip" property="createIp" jdbcType="VARCHAR" />
+		<result column="logistics_code" property="logisticsCode"
+			jdbcType="VARCHAR" />
+		<result column="logistics_comp_id" property="logisticsCompId"
+			jdbcType="TINYINT" />
+		<result column="logistics_comp_name" property="logisticsCompName"
+			jdbcType="VARCHAR" />
+		<result column="audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+		<result column="audit_by_name" property="auditByName" jdbcType="VARCHAR" />
+		<result column="reject_reason" property="rejectReason"
+			jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="confirm_date" property="confirmDate" jdbcType="TIMESTAMP" />
+		<result column="refund_date" property="refundDate" jdbcType="TIMESTAMP" />
+		<result column="reject_date" property="rejectDate" jdbcType="TIMESTAMP" />
+		<result column="cancel_date" property="cancelDate" jdbcType="TIMESTAMP" />
+		<result column="brand_show_id" property="brandShowId" jdbcType="DECIMAL" />
+		<result column="brand_show_title" property="brandShowTitle" jdbcType="VARCHAR" />
+		<result column="order_code" property="orderCode" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="com.hhf.model.order.ReturnOrder" id="BaseResultMap2" extends="BaseResultMap">
+		<collection property="retOrderItems" ofType="com.hhf.model.order.ReturnOrderItem">
+			<id column="ret_order_item_id" property="retOrderItemId" jdbcType="INTEGER" />
+		    <result column="ret_order_id" property="retOrderId" jdbcType="INTEGER" />
+		    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+		    <result column="seller_id" property="sellerId" jdbcType="INTEGER" />
+		    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+		    <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+		    <result column="return_number" property="returnNumber" jdbcType="INTEGER" />
+		    <result column="ret_fee" property="retFee" jdbcType="REAL" />
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ret_order_id, ret_order_code, order_id, seller_id, user_id, return_type,
+		return_reason,
+		evidence_pic_url, status, create_date, create_ip, logistics_code, logistics_comp_id,
+		logistics_comp_name, audit_date, audit_by_name, reject_reason, remarks,confirm_date,refund_date,reject_date,
+		cancel_date,brand_show_id,brand_show_title,order_code
+	</sql>
+	<sql id="Base_Column_List2">
+		select t.ret_order_id,
+	       t.ret_order_code,
+	       t.order_id,
+	       t.seller_id,
+	       t.user_id,
+	       t.return_type,
+	       t.return_reason,
+	       t.evidence_pic_url,
+	       t.status,
+	       t.create_date,
+	       t.create_ip,
+	       t.logistics_code,
+	       t.logistics_comp_id,
+	       t.logistics_comp_name,
+	       t.audit_date,
+	       t.audit_by_name,
+	       t.reject_reason,
+	       t.remarks,
+	       t.confirm_date,
+	       t.refund_date,
+	       t.reject_date,
+	       t.cancel_date,
+	       t.brand_show_id,
+	       t.brand_show_title,
+	       t.order_code,
+	       t1.ret_order_item_id,
+	       t1.ret_order_id ret_order_id2,
+	       t1.prod_id,
+	       t1.seller_id seller_id2,
+	       t1.item_id,
+	       t1.sku_id,
+	       t1.return_number,
+	       t1.ret_fee
+	  from t_return_order t
+	  LEFT OUTER JOIN t_return_order_items t1
+	    on t.ret_order_id = t1.ret_order_id
+		where 1=1
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_return_order
+		where ret_order_id = #{retOrderId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_return_order
+		where ret_order_id = #{retOrderId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" keyProperty="retOrderId"
+		useGeneratedKeys="true" parameterType="com.hhf.model.order.ReturnOrder">
+		insert into t_return_order (ret_order_id, ret_order_code, order_id,
+		seller_id, user_id, return_type,
+		return_reason, evidence_pic_url, status,
+		create_date, create_ip, logistics_code,
+		logistics_comp_id, logistics_comp_name, audit_date,
+		audit_by_name, reject_reason, remarks,confirm_date,refund_date,reject_date,cancel_date
+		,brand_show_id,brand_show_title,order_code
+		)
+		values (#{retOrderId,jdbcType=INTEGER}, #{retOrderCode,jdbcType=VARCHAR},
+		#{orderId,jdbcType=INTEGER},
+		#{sellerId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{returnType,jdbcType=CHAR},
+		#{returnReason,jdbcType=VARCHAR}, #{evidencePicUrl,jdbcType=VARCHAR},
+		#{status,jdbcType=CHAR},
+		#{createDate,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR}, #{logisticsCode,jdbcType=VARCHAR},
+		#{logisticsCompId,jdbcType=TINYINT},
+		#{logisticsCompName,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP},
+		#{auditByName,jdbcType=VARCHAR}, #{rejectReason,jdbcType=VARCHAR},
+		#{remarks,jdbcType=VARCHAR}, #{confirmDate,jdbcType=TIMESTAMP}, #{refundDate,jdbcType=TIMESTAMP}, #{rejectDate,jdbcType=TIMESTAMP},
+		#{cancelDate,jdbcType=TIMESTAMP},#{brandShowId,jdbcType=INTEGER},#{brandShowTitle,jdbcType=VARCHAR},
+		#{order_code,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" keyProperty="retOrderId"
+		useGeneratedKeys="true" parameterType="com.hhf.model.order.ReturnOrder">
+		insert into t_return_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="retOrderId != null">
+				ret_order_id,
+			</if>
+			<if test="retOrderCode != null">
+				ret_order_code,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="sellerId != null">
+				seller_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="returnType != null">
+				return_type,
+			</if>
+			<if test="returnReason != null">
+				return_reason,
+			</if>
+			<if test="evidencePicUrl != null">
+				evidence_pic_url,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="createIp != null">
+				create_ip,
+			</if>
+			<if test="logisticsCode != null">
+				logistics_code,
+			</if>
+			<if test="logisticsCompId != null">
+				logistics_comp_id,
+			</if>
+			<if test="logisticsCompName != null">
+				logistics_comp_name,
+			</if>
+			<if test="auditDate != null">
+				audit_date,
+			</if>
+			<if test="auditByName != null">
+				audit_by_name,
+			</if>
+			<if test="rejectReason != null">
+				reject_reason,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>			
+			<if test="confirmDate != null">
+				confirm_date,
+			</if>			
+			<if test="refundDate != null">
+				refund_date,
+			</if>			
+			<if test="rejectDate != null">
+				reject_date,
+			</if>
+			<if test="cancelDate != null">
+				cancel_date,
+			</if>
+			<if test="brandShowId != null">
+				brand_show_id,
+			</if>
+			<if test="brandShowTitle != null">
+				brand_show_title,
+			</if>
+			<if test="orderCode != null">
+				order_code,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="retOrderId != null">
+				#{retOrderId,jdbcType=INTEGER},
+			</if>
+			<if test="retOrderCode != null">
+				#{retOrderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="sellerId != null">
+				#{sellerId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="returnType != null">
+				#{returnType,jdbcType=CHAR},
+			</if>
+			<if test="returnReason != null">
+				#{returnReason,jdbcType=VARCHAR},
+			</if>
+			<if test="evidencePicUrl != null">
+				#{evidencePicUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createIp != null">
+				#{createIp,jdbcType=VARCHAR},
+			</if>
+			<if test="logisticsCode != null">
+				#{logisticsCode,jdbcType=VARCHAR},
+			</if>
+			<if test="logisticsCompId != null">
+				#{logisticsCompId,jdbcType=TINYINT},
+			</if>
+			<if test="logisticsCompName != null">
+				#{logisticsCompName,jdbcType=VARCHAR},
+			</if>
+			<if test="auditDate != null">
+				#{auditDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auditByName != null">
+				#{auditByName,jdbcType=VARCHAR},
+			</if>
+			<if test="rejectReason != null">
+				#{rejectReason,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="confirmDate != null">
+				#{confirmDate,jdbcType=TIMESTAMP},
+			</if>			
+			<if test="refundDate != null">
+				#{refundDate,jdbcType=TIMESTAMP},
+			</if>			
+			<if test="rejectDate != null">
+				#{rejectDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cancelDate != null">
+				#{cancelDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="brandShowId != null">
+				#{brandShowId,jdbcType=INTEGER},
+			</if>
+			<if test="brandShowTitle != null">
+				#{brandShowTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hhf.model.order.ReturnOrder">
+		update t_return_order
+		<set>
+			<if test="retOrderCode != null">
+				ret_order_code = #{retOrderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="sellerId != null">
+				seller_id = #{sellerId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="returnType != null">
+				return_type = #{returnType,jdbcType=CHAR},
+			</if>
+			<if test="returnReason != null">
+				return_reason = #{returnReason,jdbcType=VARCHAR},
+			</if>
+			<if test="evidencePicUrl != null">
+				evidence_pic_url = #{evidencePicUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createIp != null">
+				create_ip = #{createIp,jdbcType=VARCHAR},
+			</if>
+			<if test="logisticsCode != null">
+				logistics_code = #{logisticsCode,jdbcType=VARCHAR},
+			</if>
+			<if test="logisticsCompId != null">
+				logistics_comp_id = #{logisticsCompId,jdbcType=TINYINT},
+			</if>
+			<if test="logisticsCompName != null">
+				logistics_comp_name = #{logisticsCompName,jdbcType=VARCHAR},
+			</if>
+			<if test="auditDate != null">
+				audit_date = #{auditDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auditByName != null">
+				audit_by_name = #{auditByName,jdbcType=VARCHAR},
+			</if>
+			<if test="rejectReason != null">
+				reject_reason = #{rejectReason,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="confirmDate != null">
+				confirm_date = #{confirmDate,jdbcType=TIMESTAMP},
+			</if>			
+			<if test="refundDate != null">
+				refund_date = #{refundDate,jdbcType=TIMESTAMP},
+			</if>			
+			<if test="rejectDate != null">
+				reject_date = #{rejectDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cancelDate != null">
+				cancel_date = #{cancelDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="brandShowId != null">
+				brand_show_id = #{brandShowId,jdbcType=INTEGER},
+			</if>
+			<if test="brandShowTitle != null">
+				brand_show_title = #{brandShowTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCode != null">
+				order_code = #{orderCode,jdbcType=INTEGER},
+			</if>
+		</set>
+		where ret_order_id = #{retOrderId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hhf.model.order.ReturnOrder">
+		update t_return_order
+		set ret_order_code = #{retOrderCode,jdbcType=VARCHAR},
+		order_id = #{orderId,jdbcType=INTEGER},
+		seller_id = #{sellerId,jdbcType=INTEGER},
+		user_id = #{userId,jdbcType=INTEGER},
+		return_type = #{returnType,jdbcType=CHAR},
+		return_reason = #{returnReason,jdbcType=VARCHAR},
+		evidence_pic_url = #{evidencePicUrl,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		create_ip = #{createIp,jdbcType=VARCHAR},
+		logistics_code = #{logisticsCode,jdbcType=VARCHAR},
+		logistics_comp_id = #{logisticsCompId,jdbcType=TINYINT},
+		logistics_comp_name = #{logisticsCompName,jdbcType=VARCHAR},
+		audit_date = #{auditDate,jdbcType=TIMESTAMP},
+		audit_by_name = #{auditByName,jdbcType=VARCHAR},
+		reject_reason = #{rejectReason,jdbcType=VARCHAR},
+		remarks = #{remarks,jdbcType=VARCHAR},
+		confirm_date = #{confirmDate,jdbcType=TIMESTAMP},
+		refund_date = #{refundDate,jdbcType=TIMESTAMP},
+		reject_date = #{rejectDate,jdbcType=TIMESTAMP},
+		cancel_date = #{cancelDate,jdbcType=TIMESTAMP},
+		brand_show_id = #{brandShowId,jdbcType=INTEGER},
+		brand_show_title = #{brandShowId,jdbcType=VARCHAR},
+		order_code = #{orderCode,jdbcType=INTEGER}
+		where ret_order_id = #{brandShowTitle,jdbcType=VARCHAR}
+	</update>
+	<select id="getRetOrdersByUserIdPage" resultMap="BaseResultMap2">
+		<include refid="Base_Column_List2"/>
+		and t.user_id = #{userId,jdbcType=INTEGER}
+		order by t.create_date desc
+	</select>
+	<select id="getRetOrderByIdUid" resultMap="BaseResultMap2">
+		<include refid="Base_Column_List2"/>
+		and t.user_id = #{userId,jdbcType=INTEGER}
+		and t.ret_order_id = #{retOrderId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getRetOrdersByPage" resultMap="BaseResultMap2">
+		<include refid="Base_Column_List2"/>
+		
+		<if test="cond.retOrderCode != null and cond.retOrderCode != ''">
+			and t.ret_order_code = #{cond.retOrderCode,jdbcType=VARCHAR}
+		</if>
+		<if test="cond.sellerId != null">
+			and t.seller_id = #{cond.sellerId,jdbcType=DECIMAL}
+		</if>
+		<if test="cond.status != null">
+			and t.status = #{cond.status,jdbcType=VARCHAR}
+		</if>
+		<if test="cond.startDate != null" >
+		 	and t.create_date &gt;= #{cond.startDate,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="cond.endDate != null" >
+		 	and t.create_date &lt;= #{cond.endDate,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="cond.brandShowId != null">
+			and t.brand_show_id = #{cond.brandShowId,jdbcType=DECIMAL}
+		</if>
+		<if test="cond.brandShowTitle != null and cond.brandShowTitle != ''">
+			<bind name="brandShowTitle" value="'%' + cond.brandShowTitle + '%'" />
+			and t.brand_show_title like #{brandShowTitle,jdbcType=VARCHAR}
+		</if>
+		<if test="cond.orderCode != null and cond.orderCode != ''">
+			and t.order_code = #{cond.orderCode,jdbcType=VARCHAR}
+		</if>
+		order by t.ret_order_id desc
+	</select>
+	
+	<select id="getToBeProcessRetOrderCountOfSeller" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+      	select 
+   			count(*)
+   		from t_return_order
+	    where seller_id = #{sellerId,jdbcType=INTEGER}
+	    	and status = '1'
+   </select>	
+</mapper>
